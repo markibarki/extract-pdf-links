@@ -6,7 +6,11 @@ Task: Given the URL of an HTML page, extract all links to PDF files contained wi
 @author: Maxim Zaslavsky
 """
 
-import sys, os, re, urllib.request
+import sys, os, re
+try:
+	from urllib.request import urlopen
+except ImportError:
+	from urllib import urlopen
 
 # Initialize: handle required arguemnts
 try:
@@ -22,7 +26,7 @@ except:
     delim = '\n'
 
 # Step 1: download HTML
-html = urllib.request.urlopen(urlsource).read().decode('utf-8')
+html = urlopen(urlsource).read().decode('utf-8')
 print('Downloaded HTML')
 
 # Step 2: extract links
